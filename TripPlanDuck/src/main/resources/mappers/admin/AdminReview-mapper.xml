@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.tripplan.duck.admin.model.mapper.AdminMapper">
+
+	<sql id="selectReviewSql">
+		SELECT * FROM DESTINATION_COMMENTS
+	</sql>
+
+	<resultMap type="Destination" id="DestinationResultMap">
+		<id property="destNo" column="DEST_NO"/>
+		<result property="destCategory" column="DEST_CATEGORY"/>
+		<result property="destSubject" column="DEST_SUBJECT"/>
+		<result property="destSummary" column="DEST_SUMMARY"/>
+		<result property="destContent" column="DEST_CONTENT"/>
+		<result property="destAddress" column="DEST_ADDRESS"/>
+		<result property="destMapX" column="DEST_MAP_X"/>
+		<result property="destMapY" column="DEST_MAP_Y"/>
+		<result property="destHit" column="DEST_HIT"/>
+		<result property="destCreateDate" column="DEST_CREATEDATE"/>
+		<result property="destUpdateDate" column="DEST_UPDATEDATE"/>
+		<result property="locationId" column="LOCATION_ID"/>
+		<result property="destImage" column="DEST_IMAGE"/>
+		<result property="destLikeSum" column="DEST_LIKE_SUM"/>
+		<result property="destRatingAvg" column="DEST_RATING_AVG"/>
+	</resultMap>
+	
+	<resultMap type="Location" id="locationResultMap">
+		<id property="locationId" column="LOCATION_ID" />
+		<result property="location" column="LOCATION" />
+		<result property="lcenterx" column="LCENTERX" />
+		<result property="lcentery" column="LCENTERY" />
+		<result property="locationImage" column="LOCATION_IMAGE" />
+		<result property="locationTitle" column="LOCATION_TITLE" />
+	</resultMap>
+	
+	<resultMap type="Comments" id="commentsResultMap">
+		<id property="commentsId" column="COMMENTS_ID" />
+		<result property="memberNo" column="M_NO" />
+		<result property="commentsWriterId" column="COMMENTS_WRITER_ID" />
+		<result property="commentsContent" column="COMMENTS_CONTENT" />
+		<result property="commentsRating" column="COMMENTS_RATING" />
+		<result property="commentsCreateDate" column="COMMENTS_CREATEDATE" />
+		<result property="commentsUpdateDate" column="COMMENTS_UPDATEDATE" />
+		<result property="destNo" column="DEST_NO" />
+	</resultMap>
+	
+	<resultMap type="Report" id="Report">
+		<id property="reportId" column="REPORT_ID" />
+		<result property="reportCategory" column="REPORT_CATEGORY" />
+		<result property="reportMemberNo" column="REPORT_M_NO" />
+		<result property="reportCreateDate" column="REPORT_CREATEDATE" />
+		<result property="reportCount" column="REPORT_COUNT" />
+		<result property="reportType" column="REPORT_TYPE" />
+		<result property="reportNoType" column="REPORT_NO_TYPE" />
+		<result property="memberNo" column="M_NO" />
+	</resultMap>
+	
+	<select id="selectReviewAll" resultMap="Report">		
+		SELECT * FROM REPORT
+		WHERE REPORT_CATEGORY = 'REVIEW'
+	</select>
+
+	<select id="Category" parameterType="_int" resultMap="commentsResultMap">
+		SELECT D.COMMENTS_ID,
+			   D.M_NO,
+			   D.COMMENTS_WRITER_ID,
+			   D.COMMENTS_CONTENT,
+			   D.COMMENTS_RATING,
+			   D.COMMENTS_CREATEDATE,
+			   D.COMMENTS_UPDATEDATE,
+			   D.DEST_NO
+	    FROM REPORT R
+	    JOIN DESTINATION_COMMENTS D ON(R.REPORT_NO_TYPE = D.COMMENTS_ID)
+	    WHERE R.REPORT_NO_TYPE = #{reviewNo}
+	</select>
+	
+	<select id="selectReviewOld" resultMap="Report">
+		SELECT * FROM REPORT
+		WHERE REPORT_CATEGORY = 'REVIEW'
+        ORDER BY REPORT_CREATEDATE ASC
+	</select>
+	
+	<select id="selectReviewLatest" resultMap="Report">
+		SELECT * FROM REPORT
+		WHERE REPORT_CATEGORY = 'REVIEW'
+        ORDER BY REPORT_CREATEDATE DESC
+	</select>
+	
+	<select id="reviewCount" resultType="_int">
+		SELECT COUNT(*) FROM DESTINATION_COMMENTS
+	</select>
+	
+	<delete id="deleteComment" parameterType="int">
+		DELETE FROM DESTINATION_COMMENTS WHERE COMMENTS_ID = #{commentsId}
+	</delete>
+
+</mapper>

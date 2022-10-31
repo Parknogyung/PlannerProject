@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.tripplan.duck.planner.model.mapper.PlannerMapper">
+	<sql id="findLocation" >
+		<!-- 
+		 SELECT L.LOCATION_ID, L.LOCATION 
+		FROM MY_PLANNER MP 
+		JOIN LOCATION L ON(MP.LOCATION_ID = L.LOCATION_ID)
+		 SELECT * FROM LOCATION
+		 -->
+		 SELECT * FROM LOCATION
+	</sql>
+	<sql id="findRoute">
+		<!-- 
+		SELECT L.LOCATION_ID, L.LOCATION 
+		FROM MY_PLANNER MP 
+		JOIN LOCATION L ON(MP.LOCATION_ID = L.LOCATION_ID)
+		WHERE M_NO=#{M_NO}
+		 -->
+	</sql>
+	<sql id="locationSelect">
+		SELECT * FROM LOCATION
+		WHERE LOCATION_ID=#{locationId}
+	</sql>
+	<resultMap type="com.tripplan.duck.planner.model.vo.DetailPlanner" id="detailPlannerResultMap">
+		<id property="pNo" column="P_NO" />
+		<result property="sqes" column="SEQS"/>
+		<result property="place" column="PLACE"/>
+		<result property="image" column="IMAGE"/>
+	</resultMap>
+	
+	<resultMap type="com.tripplan.duck.planner.model.vo.Location" id="memberResultMap">
+		<id property="memberNo" column="M_NO" />
+		<result property="memberId" column="M_ID"/>
+		<result property="memberPassword" column="M_PW"/>
+		<result property="memberNickname" column="M_NICKNAME"/>
+		<result property="memberEmail" column="M_EMAIL"/>
+		<result property="memberType" column="M_TYPE"/>
+		<result property="memberWarning" column="M_WARNING"/>
+		<result property="memberStatus" column="M_STATUS"/>
+		<result property="memberGender" column="M_GENDER"/>
+		<result property="memberAge" column="M_AGE"/>
+	</resultMap>
+	
+	<resultMap type="com.tripplan.duck.planner.model.vo.MyPlanner" id="MyPlannerResultMap">
+		<id property="pNo" column="P_NO" />
+		<result property="mNo" column="M_NO" />
+		<result property="demo" column="TOURDATE" />
+		<result property="locationId" column="LOCATION_ID" />
+		<collection property="loca" javaType="arrayList" columnPrefix="R_" resultMap="locationInsertMap"></collection>
+	</resultMap>
+	
+	<resultMap type="com.tripplan.duck.planner.model.vo.Location" id="locationInsertMap">
+		<id property="locationId" column="LOCATION_ID" />
+		<result property="location" column="LOCATION" />
+		<result property="lcenterx" column="LCENTERX" />
+		<result property="lcentery" column="LCENTERY" />
+		<result property="locationImage" column="LOCATION_IMAGE" />
+		<result property="locationTitle" column="LOCATION_TITLE" />
+		
+	</resultMap>
+	
+	<resultMap type="com.tripplan.duck.trip.model.vo.Destination" id="DestFindResultMap">
+		<id property="pNo" column="P_NO" />
+		<result property="destNo" column="DEST_NO" />
+		<result property="destCategory" column="DEST_CATEGORY" />
+		<result property="destSubject" column="DEST_SUBJECT" />
+		<result property="destSummary" column="DEST_SUMMARY" />
+		<result property="destContent" column="DEST_CONTENT" />
+		<result property="destAddress" column="DEST_ADDRESS" />
+		<result property="destMapX" column="DEST_MAP_X" />
+		<result property="destMapY" column="DEST_MAP_Y" />
+		<result property="destLikeSum" column="DEST_LIKE_SUM" />
+		<result property="destRatingAvg" column="DEST_RATING_AVG" />
+		<result property="destHit" column="DEST_HIT" />
+		<result property="destCreateDate" column="DEST_CREATEDATE" />
+		<result property="destUpdateDate" column="DEST_UPDATEDATE" />
+		<result property="locationId" column="LOCATION_ID" />
+		<result property="destImage" column="DEST_IMAGE"/>
+		<collection property="loca" javaType="arrayList" columnPrefix="R_" resultMap="locationInsertMap"></collection>
+	</resultMap>
+	
+	<select id="locationInsert" parameterType="int" resultMap="locationInsertMap">
+		<include refid="findLocation"/>
+	</select>
+	
+	<!-- My planner insert -->
+	
+	<insert id="insertPlanner" parameterType="MyPlanner" keyColumn="P_NO" keyProperty="pNo">
+		INSERT INTO MY_PLANNER (P_NO,M_NO,LOCATION_ID,TOURDATE) VALUES (SEQ_MY_PLANNER_NO.NEXTVAL,#{mNo},#{locationId},#{demo})
+	</insert>
+	
+	<insert id="detailInsert" parameterType="HashMap">
+		<selectKey keyProperty="pNo" resultType="integer" order="BEFORE">
+	        SELECT (MAX(P_NO)) FROM MY_PLANNER
+	    </selectKey>
+	    
+		INSERT INTO DETAIL_PLANNER (P_NO,SEQS,PLACE,IMAGE) VALUES
+			(#{pNo},SEQ_SEQS.NEXTVAL,#{place},#{destImage})
+	</insert>
+	
+	<select id="location" parameterType="int" resultMap="locationInsertMap">
+		SELECT * FROM LOCATION
+		WHERE LOCATION_ID = #{locationSelect}
+	</select>
+	
+	
+	<select id="selectDest" resultMap="DestFindResultMap">
+		SELECT * FROM LOCATION L
+		JOIN DESTINATION D ON (L.LOCATION_ID = D.LOCATION_ID)
+		WHERE L.LOCATION_ID = #{locationSelect}
+		ORDER BY DEST_LIKE_SUM DESC
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>

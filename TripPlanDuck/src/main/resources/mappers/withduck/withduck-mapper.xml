@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.tripplan.duck.withduck.model.mapper.WithDuckMapper">
+	<sql id="withDuckListSql">
+	SELECT WITH_NO,
+	       WITH_WRITER_NO,
+	       WITH_WRITER_NICK,
+	       WITH_LOCATION,
+	       WITH_GENDER,
+	       WITH_AGE,
+	       WITH_PERSONNER,
+	       WITH_STATUS,
+	       TO_CHAR(WITH_STARTDATE, 'YYYY-MM-DD') AS "WITH_STARTDATE",
+	       TO_CHAR(WITH_ENDDATE, 'YYYY-MM-DD') AS "WITH_ENDDATE",
+	       WITH_ORIGINFILENAME,
+	       WITH_RENAMEFILENAME,
+	       WITH_TITLE,
+	       WITH_CONTENT,
+	       WITH_WRITER_GENDER,
+	       WITH_WRITER_AGE,
+	       WITH_KEYWORD,
+	       WITH_READCOUNT,
+	       WITH_JOINSTATUS,
+	       WITH_CREATEDATE,
+	       WITH_UPDATEDATE
+	FROM WITHDUK
+	WHERE WITH_STATUS='Y'
+	</sql>
+	
+	
+	<resultMap type="WithDuck" id="withDuckResultMap">
+		<id property="withNo" column="WITH_NO"/>
+		<result property="withWriterNo" column="WITH_WRITER_NO"/>
+		<result property="withWriterNick" column="WITH_WRITER_NICK"/>
+		<result property="withLocation" column="WITH_LOCATION"/>
+		<result property="withGender" column="WITH_GENDER"/>
+		<result property="withAge" column="WITH_AGE"/>
+		<result property="withPersonner" column="WITH_PERSONNER"/>
+		<result property="withStatus" column="WITH_STATUS"/>
+		<result property="withStartDate" column="WITH_STARTDATE"/>
+		<result property="withEndDate" column="WITH_ENDDATE"/>
+		<result property="withOriginFileName" column="WITH_ORIGINFILENAME"/>
+		<result property="withRenameFileName" column="WITH_RENAMEFILENAME"/>
+		<result property="withTitle" column="WITH_TITLE"/>
+		<result property="withContent" column="WITH_CONTENT"/>
+		<result property="withWriterGender" column="WITH_WRITER_GENDER"/>
+		<result property="withWriterAge" column="WITH_WRITER_AGE"/>
+		<result property="withkeyword" column="WITH_KEYWORD"/>
+		<result property="withReadCount" column="WITH_READCOUNT"/>
+		<result property="withJoinStatus" column="WITH_JOINSTATUS"/>
+		<result property="createDate" column="WITH_CREATEDATE"/>
+		<result property="updateDate" column="WITH_UPDATEDATE"/>
+	</resultMap>
+	<!-- 
+	<resultMap type="Member" id="memberResultMap">
+		<id property="memberNo" column="M_NO" />
+		<result property="memberId" column="M_ID"/>
+		<result property="memberPassword" column="M_PW"/>
+		<result property="memberNickname" column="M_NICKNAME"/>
+		<result property="memberEmail" column="M_EMAIL"/>
+		<result property="memberType" column="M_TYPE"/>
+		<result property="memberWarning" column="M_WARNING"/>
+		<result property="memberStatus" column="M_STATUS"/>
+		<result property="memberGender" column="M_GENDER"/>
+		<result property="memberAge" column="M_AGE"/>
+	</resultMap>
+	 -->
+	
+	
+	<!-- 내림차순 조회 -->
+	<select id="withDuckSelectAll" resultMap="withDuckResultMap">
+		<include refid="withDuckListSql" />
+		ORDER BY WITH_CREATEDATE DESC
+	</select>
+	
+	<select id="withDuckSelectReadCount" resultMap="withDuckResultMap">
+		<include refid="withDuckListSql" />
+		ORDER BY WITH_READCOUNT DESC
+	</select>
+	
+	<!-- 위드덕 게시물 카운트 -->
+	<select id="selectWithDuckCount" resultType="_int">
+		SELECT COUNT(*) FROM WITHDUK WHERE WITH_STATUS='Y'
+	</select>
+	
+	<select id="withDuckReadcountSort" resultMap="withDuckResultMap" parameterType="map">
+		<include refid="withDuckListSql" />
+		AND WITH_LOCATION LIKE '%' || #{location_val} || '%' AND WITH_GENDER LIKE '%' || #{gender_val} || '%' AND WITH_AGE LIKE '%' || #{age_val} || '%' AND (WITH_STARTDATE = TO_DATE(#{start_val}, 'YYYY-MM-DD') AND WITH_ENDDATE= TO_DATE(#{end_val}, 'YYYY-MM-DD')) AND WITH_PERSONNER = #{personnel_val}
+		ORDER BY WITH_READCOUNT DESC
+	</select>
+
+	<select id="selectWithDuckJoinValCount" resultType="_int" parameterType="map">
+		SELECT COUNT(*) FROM WITHDUK 
+		WHERE WITH_STATUS='Y' 
+		<if test="location_val != null and location_val != ''">
+			AND WITH_LOCATION LIKE '%' || #{location_val} || '%'
+		</if>
+		<if test="gender_val != null and gender_val != ''">
+			AND WITH_GENDER LIKE '%' || #{gender_val} || '%'
+		</if>
+		<if test="age_val != null and age_val != ''">
+			AND WITH_AGE LIKE '%' || #{age_val} || '%'
+		</if>
+		<if test="start_val != null and start_val != ''">
+			AND (WITH_STARTDATE = TO_DATE(#{start_val}, 'YYYY-MM-DD')
+		</if>
+		<if test="end_val != null and end_val != ''">
+			AND WITH_ENDDATE= TO_DATE(#{end_val}, 'YYYY-MM-DD'))
+		</if>
+		<if test="personnel_val != 0">
+			AND WITH_PERSONNER = #{personnel_val}
+		</if>
+		<if test="joinStatus.equals('모집중')">
+			AND WITH_JOINSTATUS = '모집중'
+		</if>
+		<if test="keywordSearch!=null and !keywordSearch.equals('')">
+			AND WITH_KEYWORD LIKE '%' || #{keywordSearch} || '%'
+		</if>
+		<if test="sort_name.equals('최신순')">
+			ORDER BY WITH_CREATEDATE DESC
+		</if>
+		<if test="sort_name.equals('조회순')">
+			ORDER BY WITH_READCOUNT DESC
+		</if>
+	</select>
+	
+	<select id="withDuckJoinFilter" parameterType="map" resultMap="withDuckResultMap">
+		<include refid="withDuckListSql" />
+		<if test="location_val != null and location_val != ''">
+			AND WITH_LOCATION LIKE '%' || #{location_val} || '%'
+		</if>
+		<if test="gender_val != null and gender_val != ''">
+			AND WITH_GENDER LIKE '%' || #{gender_val} || '%'
+		</if>
+		<if test="age_val != null and age_val != ''">
+			AND WITH_AGE LIKE '%' || #{age_val} || '%'
+		</if>
+		<if test="start_val != null and start_val != ''">
+			AND (WITH_STARTDATE = TO_DATE(#{start_val}, 'YYYY-MM-DD')
+		</if>
+		<if test="end_val != null and end_val != ''">
+			AND WITH_ENDDATE= TO_DATE(#{end_val}, 'YYYY-MM-DD'))
+		</if>
+		<if test="personnel_val != 0">
+			AND WITH_PERSONNER = #{personnel_val}
+		</if>
+		<if test="joinStatus.equals('모집중')">
+			AND WITH_JOINSTATUS = '모집중'
+		</if>
+		<if test="keywordSearch!=null and !keywordSearch.equals('')">
+			AND WITH_KEYWORD LIKE '%' || #{keywordSearch} || '%'
+		</if>
+		<if test="sort_name.equals('최신순')">
+			ORDER BY WITH_CREATEDATE DESC
+		</if>
+		<if test="sort_name.equals('조회순')">
+			ORDER BY WITH_READCOUNT DESC
+		</if>
+	</select>
+	
+	<!-- 위드덕 생성 -->	
+	<insert id="createWithDuck" parameterType="WithDuck" useGeneratedKeys="true" keyProperty="withNo" keyColumn="WITH_NO">
+		INSERT INTO WITHDUK VALUES(
+			SEQ_WITHDUCK_NO.NEXTVAL,
+			#{withWriterNo},
+			#{withWriterNick},
+			#{withLocation},
+			#{withGender},
+			#{withAge},
+			#{withPersonner},
+			DEFAULT,
+			TO_DATE(#{withStartDate}, 'YYYY-MM-DD'),
+			TO_DATE(#{withEndDate}, 'YYYY-MM-DD'),
+			#{withOriginFileName},
+			#{withRenameFileName},
+			#{withTitle},
+			#{withContent},
+			#{withWriterGender},
+			#{withWriterAge},
+			#{withkeyword},
+			DEFAULT,
+			DEFAULT,
+			SYSDATE,
+			SYSDATE	
+		)
+		
+	</insert>
+	
+	<select id="detailWithDuck" resultMap="withDuckResultMap" resultType="WithDuck" parameterType="_int">
+		<include refid="withDuckListSql" />
+		AND WITH_NO = #{withNo}
+	</select>
+	
+	<update id="updateGoWithDuck" parameterType="WithDuck">
+		UPDATE WITHDUK
+		SET 
+		WITH_LOCATION = #{withLocation},
+		WITH_GENDER = #{withGender},
+		WITH_AGE = #{withAge},
+		WITH_PERSONNER = #{withPersonner},
+		WITH_ORIGINFILENAME = #{withOriginFileName},
+		WITH_RENAMEFILENAME = #{withRenameFileName},
+		WITH_TITLE = #{withTitle},
+		WITH_CONTENT = #{withContent},
+		WITH_KEYWORD = #{withkeyword},
+		WITH_JOINSTATUS = #{withJoinStatus},
+		WITH_STARTDATE = #{withStartDate},
+		WITH_ENDDATE = #{withEndDate},
+		WITH_UPDATEDATE = SYSDATE
+		WHERE WITH_NO = #{withNo}
+	</update>
+	
+	<update id="deleteWithDuck" parameterType="_int">
+		UPDATE WITHDUK
+		SET
+		WITH_STATUS = 'N'
+		WHERE WITH_NO = #{withNo}
+	</update>
+
+	<update id="withDuckReadCount" parameterType="_int">
+		UPDATE WITHDUK
+		SET
+		WITH_READCOUNT = WITH_READCOUNT + 1
+		WHERE WITH_NO = #{withNo}
+	</update>
+	
+	<select id="countChatMem" resultType="_int">
+		SELECT COUNT(*) FROM(
+			SELECT *
+			FROM WITHDUK_CHAT 
+			WHERE WITH_NO = ${withNo})
+		WHERE WITH_MEM_NO = ${memberNo}
+	</select>
+</mapper>

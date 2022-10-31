@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.tripplan.duck.admin.model.mapper.AdminMapper">
+	<sql id="withDuckListSql">
+	SELECT WITH_NO,
+	       WITH_WRITER_NO,
+	       WITH_WRITER_NICK,
+	       WITH_LOCATION,
+	       WITH_GENDER,
+	       WITH_AGE,
+	       WITH_PERSONNER,
+	       WITH_STATUS,
+	       TO_CHAR(WITH_STARTDATE, 'YYYY-MM-DD') AS "WITH_STARTDATE",
+	       TO_CHAR(WITH_ENDDATE, 'YYYY-MM-DD') AS "WITH_ENDDATE",
+	       WITH_ORIGINFILENAME,
+	       WITH_RENAMEFILENAME,
+	       WITH_TITLE,
+	       WITH_CONTENT,
+	       WITH_WRITER_GENDER,
+	       WITH_WRITER_AGE,
+	       WITH_KEYWORD,
+	       WITH_READCOUNT,
+	       WITH_JOINSTATUS,
+	       WITH_CREATEDATE,
+	       WITH_UPDATEDATE
+	FROM WITHDUK
+	</sql>
+	
+	
+	<resultMap type="WithDuck" id="WithDuck">
+		<id property="withNo" column="WITH_NO"/>
+		<result property="withWriterNo" column="WITH_WRITER_NO"/>
+		<result property="withWriterNick" column="WITH_WRITER_NICK"/>
+		<result property="withLocation" column="WITH_LOCATION"/>
+		<result property="withGender" column="WITH_GENDER"/>
+		<result property="withAge" column="WITH_AGE"/>
+		<result property="withPersonner" column="WITH_PERSONNER"/>
+		<result property="withStatus" column="WITH_STATUS"/>
+		<result property="withStartDate" column="WITH_STARTDATE"/>
+		<result property="withEndDate" column="WITH_ENDDATE"/>
+		<result property="withOriginFileName" column="WITH_ORIGINFILENAME"/>
+		<result property="withRenameFileName" column="WITH_RENAMEFILENAME"/>
+		<result property="withTitle" column="WITH_TITLE"/>
+		<result property="withContent" column="WITH_CONTENT"/>
+		<result property="withWriterGender" column="WITH_WRITER_GENDER"/>
+		<result property="withWriterAge" column="WITH_WRITER_AGE"/>
+		<result property="withkeyword" column="WITH_KEYWORD"/>
+		<result property="withReadCount" column="WITH_READCOUNT"/>
+		<result property="withJoinStatus" column="WITH_JOINSTATUS"/>
+		<result property="createDate" column="WITH_CREATEDATE"/>
+		<result property="updateDate" column="WITH_UPDATEDATE"/>
+	</resultMap>
+	
+	
+	<resultMap type="Report" id="ReportResultMap">
+		<id property="reportId" column="REPORT_ID" />
+		<result property="reportCategory" column="REPORT_CATEGORY" />
+		<result property="reportMemberNo" column="REPORT_M_NO" />
+		<result property="reportCreateDate" column="REPORT_CREATEDATE" />
+		<result property="reportCount" column="REPORT_COUNT" />
+		<result property="reportType" column="REPORT_TYPE" />
+		<result property="reportNoType" column="REPORT_NO_TYPE" />
+		<result property="memberNo" column="M_NO" />
+	</resultMap>
+	
+	<select id="withDuckFindNo" parameterType="int" resultMap="WithDuck">
+		SELECT * FROM WITHDUK 
+		WHERE WITH_NO = #{withDuckNo}
+	</select>
+	
+	<select id="withDuckSelectAll" resultMap="ReportResultMap">
+		SELECT * FROM REPORT
+		WHERE REPORT_CATEGORY = 'WITHDUCK'
+	</select>
+	
+	<select id="selectWithDuckCount" resultType="_int">
+		SELECT COUNT(*) FROM WITHDUK
+	</select>
+	
+	<select id="withDuckSelectLatest" resultMap="ReportResultMap">
+		SELECT * FROM REPORT
+		WHERE REPORT_CATEGORY = 'WITHDUCK'
+        ORDER BY REPORT_CREATEDATE DESC
+	</select>
+	
+	<select id="withDuckSelectOld" resultMap="ReportResultMap">
+		SELECT * FROM REPORT
+		WHERE REPORT_CATEGORY = 'WITHDUCK'
+        ORDER BY REPORT_CREATEDATE ASC
+	</select>
+	
+	<delete id="deletewithDuck" parameterType="_int">
+		DELETE FROM WITHDUK WHERE WITH_NO = #{withNo}
+	</delete>
+
+	
+</mapper>

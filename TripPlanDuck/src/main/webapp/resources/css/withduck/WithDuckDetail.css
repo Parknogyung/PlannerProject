@@ -1,0 +1,263 @@
+    .btn-outline-danger {
+  background-color: #ffb5b5 !important;
+   font-size: 14px;
+  color: black;
+}
+
+.btn-outline-danger:hover {
+  background-color: #ffb5b5!important;
+  color: black;
+}
+/************************************************************* 모달 *****************************************************************/
+    .box-radio-input input[type="radio"]{
+  display:none;
+}
+
+.box-radio-input input[type="radio"] + span{
+  display: inline-block;
+  background: none;
+  border: 1px solid #b2b2b2;
+  padding: 0px 10px;
+  text-align: center;
+  height: 30px;
+  line-height: 30px;
+  font-weight: 500;
+  font-size: 0.93rem;
+  cursor: pointer;
+}
+
+.box-radio-input input[type="radio"]:checked + span{
+  border:1px solid #f4f3f1;
+  background:darkgrey;
+  color: #fff;
+}
+    /************************************************************* zone 1 *****************************************************************/
+    .carousel_container {
+        text-align: center;
+        margin: auto;
+        width: 80%;
+        height: 30%;
+        margin-top: 100px;
+    }
+
+    .slide {
+        width: 1000px;
+        height: 500px;
+        margin: auto;
+    }
+
+    .carousel-inner {
+        height: 100%;
+        width: 100%;
+        margin: auto;
+    }
+
+    .car-img {
+        /* width: 1000px;
+        height: 500px !important;
+        object-fit: cover; */
+        
+        position: absolute; top:0; left: 0;
+        width: 1000px;
+        height: 500px !important;
+        object-fit: cover;
+        /* position: relative;
+        top: 30%; */
+    }
+
+    .carousel-inner {
+        background-color: rgb(192, 192, 192);
+    }
+
+    .carousel-item {
+        height: 500px;
+    }
+
+    /******************************************************zone2 ****************************************************************/
+    input[type="checkbox"] {
+        display: none;
+    }
+    
+    .label__on-off {
+        overflow: hidden;
+        position: relative;
+        display: inline-block;
+        width: 100px;
+        height: 26px;
+        -webkit-border-radius: 13px;
+        -moz-border-radius: 13px;
+        border-radius: 13px;
+        background-color: #ed4956;
+        color: #fff;
+        font-weight: bold;
+        cursor: pointer;
+        -webkit-transition: all .3s;
+        -moz-transition: all .3s;
+        -ms-transition: all .3s;
+        -o-transition: all .3s;
+        transition: all .3s;
+    }
+    
+    .label__on-off > * {
+        vertical-align: middle;
+        -webkit-transition: all .3s;
+        -moz-transition: all .3s;
+        -ms-transition: all .3s;
+        -o-transition: all .3s;
+        transition: all .3s;
+        font-size: 14px;
+    }
+    
+    .label__on-off .marble {
+        position: absolute;
+        top: 1px;
+        left: 1px;
+        display: block;
+        width: 24px;
+        height: 24px;
+        background-color: #fff;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+        -moz-box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+        box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+    }
+    
+    .label__on-off .on {
+        display: none;
+        padding-left: 12px;
+    }
+    
+    .label__on-off .off {
+        padding-left: 30px;
+        line-height: 25px;
+    }
+    
+    .input__on-off:checked + .label__on-off {
+        background-color: #0bba82;
+    }
+    
+    .input__on-off:checked + .label__on-off .on {
+        display: inline-block;
+    }
+    
+    .input__on-off:checked + .label__on-off .off {
+        display: none;
+    }
+    
+    .input__on-off:checked + .label__on-off .marble {
+        left: 74px;
+    }
+    
+
+    .zone2 {
+        margin-top: 3%;
+    }
+
+    .filter span {
+        color: #ffc107;
+        font-weight: bold;
+    }
+
+    .filter {
+        border: 3px solid #a7a2a28f;
+        padding: 16px
+    }
+
+    .filter div {
+        font-weight: bold;
+    }
+
+    .profile-container {
+        height: 50px;
+        margin-top: 16px;
+    }
+
+    .profile-img {
+        height: 100%;
+        float: left;
+    }
+
+    .profile-name {
+        height: 50%;
+        float: left;
+        position: relative;
+        left: 14px;
+    }
+
+    .profile-img img {
+        width: 40px;
+    }
+
+    .profile-age {
+        height: 50%;
+        float: left;
+        position: relative;
+        bottom: 10px;
+    }
+
+    .profile-container div {
+        display: inline-block;
+    }
+
+    .profile-name span {
+        font-size: 10px;
+        font-weight: bold;
+    }
+
+    .profile-age span {
+        font-size: 10px;
+        font-weight: bold;
+    }
+
+    .tag-container {
+        width: 100px;
+        display: flex;
+        height: 50px;
+        background-color: #a7a2a238;
+        align-items: center;
+        justify-content: center;
+        float: left;
+        margin-top: 20px;
+        margin-left: 5px;
+        border-radius: 0.9em;
+    }
+    
+    .tag-container:hover {
+        background-color: #a7a2a28f;
+    }
+
+    .tags a {
+        color: black;
+        font-weight: bold;
+    }
+
+
+
+    #join {
+        border: 0;
+        outline: 0;
+        background-color: skyblue;
+        width: 100px;
+        height: 40px;
+        border-radius: 10px;
+    }
+
+
+    .with_title:focus {
+        outline: 2px solid rgb(216, 201, 85);
+    }
+    
+    .btn:focus,
+    .btn:active {
+        outline: none !important;
+        box-shadow: none !important;
+    }
+    
+    .btn-outline-warning {
+        background-color: #fff8c6;
+        color: black;
+        font-size: 14px;
+        margin-right: 10px;
+    }

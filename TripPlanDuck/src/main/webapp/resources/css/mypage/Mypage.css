@@ -1,0 +1,385 @@
+/* div {
+    border: solid 1px red;
+}
+
+li {
+    border: solid 1px red;
+} */
+
+/* 상위 컨테이너 */
+.top-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.userMypageMenu {
+    display: flex;
+}
+
+.nickName {
+    font-size: 1.4rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+.btn-outline-warning {
+    background-color: #fff8c6;
+    color: black;
+}
+
+.btn-outline-warning:hover {
+    background-color: #fff8c6;
+}
+
+.btn-updateForm {
+    margin-top: 40px;
+}
+
+/* 탭메뉴 */
+.nav-link {
+    color: black;
+    font-size: 1.5rem;
+    background-color: transparent;
+    border: 0;
+}
+
+.nav-link:after {
+    display: block;
+    content: '';
+    border-bottom: solid 5px #fff8c6;
+    transform: scaleX(0);  
+    transition: transform 300ms ease-in-out;
+}
+
+.nav-link:hover:after {
+    transform: scaleX(1);
+}
+
+.content-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.section-title {
+    color: #fabf42;
+    font-size: 1.7rem;
+}
+
+/* 카드 */
+.card-body {
+    transform: translate(-3%, 1%);
+}
+
+.likeCard {
+    width: 800px;
+    height: 200px;
+}
+
+.imgSize {
+    width: 240px;
+    height: 220px;
+    padding-bottom: 20px;
+    cursor: pointer;
+}
+
+.likeCard:hover {
+    cursor: pointer;
+    box-shadow: 0 2px 12px 0 #fff8c6, 0 1px 4px 0 #fff8c6;
+    border: 1px solid #fff8c6;
+}
+
+/* 내 플래너 카드 */
+.route {
+    display: inline-block;
+}
+
+/* 여행지 필터 */
+.form-control {
+    float: right;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+
+.form-control:hover,
+.form-control:focus,
+.form-control::after {
+    border: 1px solid #fff8c6;
+    outline: 3px solid #fff8c6;
+    box-shadow: 0 0 0 0.2rem #fff8c6;
+}
+
+select option {
+    border-radius: 4px;
+}
+
+select option:checked,
+select option:hover
+select option:focus {
+    background: #fff8c6;
+    cursor: pointer;
+}
+
+/* 내 여행지 카드 */
+.destAddress {
+    display: inline-block;
+}
+
+/* 작성한 리뷰 카드 */
+.commentCard-body {
+    margin-top: 3px;
+}
+.commentCard {
+    width: 800px;
+    height: 200px;
+    margin-bottom: 5px;
+}
+
+.destination {
+    display: inline-flex;
+    margin-top: 28px;
+    margin-left: 32px;
+}
+
+.card-title {
+    color: #fabf42;
+}
+
+.separator {
+    padding-left: 5px;
+    margin-top: 7px;
+    color: #6c757d;
+}
+
+.card-area {
+    margin-top: 8px;
+    margin-left: 7px;
+    font-size: 1.1rem;
+}
+
+.info-container-top {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.title {
+    color: #fabf42;
+}
+
+.text-content {
+    color: black;
+    padding-left: 5px;
+}
+
+.commentContent {
+    margin-left: 40px;
+    font-size: 1.3rem;
+    overflow-y:scroll;
+    width: 750px;
+    height: 50px;
+}
+
+.commentContent::-webkit-scrollbar {
+    display: none;
+}
+
+.commentDate {
+    margin-left: 30px;
+}
+
+/* 내 여행지 하트 */
+.fa-heart {
+    color: #fabf42;
+    float: right;
+    transform: translate(62%, -25%);
+}
+
+/* 나의 리뷰 별점 */
+.commentStar-rating {
+    display: flex;
+    float: right;
+    padding-right: 24px;
+    padding-top: 11px;
+}
+
+.star {
+    color: #fabf42;
+    font-size: 1.3rem;
+}
+
+.commentsRating {
+font-size: 1.4rem;
+}
+
+/* 더보기 */
+.wrap-downChevron {
+    text-align: center;
+}
+
+.down-chevron {
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+    -webkit-filter: opacity(.3) drop-shadow(4px 4px 4px #fabf42);
+    filter: opacity(.3) drop-shadow(4px 4px 4px #fabf42);
+    -webkit-filter: opacity(.4) drop-shadow(3px 0px 0px #fff8c6);
+    filter: opacity(.4) drop-shadow(2px 1px 0px #fff8c6);
+}
+
+.down-chevron:active {
+    position: relative;
+    top:2px;
+    -webkit-filter: opacity(.1) drop-shadow(1px 1px 1px #808080);
+    filter: opacity(.1) drop-shadow(1px 1px 1px #808080);
+}
+
+/* 카드 버튼 */
+.btn-plannerDelete {
+    margin-left: 336px;
+}
+.card-btns {
+    float: right;
+    margin-right: 19px;
+    margin-bottom: 10px;
+}
+
+
+/* no data */
+.nodataImg {
+    width: 130px;
+    height: 162px;
+    transform: translate(20%, 6%);
+}
+
+.nodata {
+    transform: translate(122%, -1%);
+}
+
+.plannerNodata {
+    transform: translate(122%, -1%);
+}
+
+/* 비밀번호 모달 */
+.pwdCheckModal {
+    background-color: #fff8c6;
+}
+
+.inputPwd {
+    border: 1px solid #fabf42;
+    width: 300px;
+    height: 40px;
+    border-radius: 5px;
+}
+
+.modal-body input:focus {
+    border: 1px solid #fabf42;
+    width: 300px;
+    height: 40px;
+    border-radius: 5px;
+}
+
+#inputPwdModal input[type="text"]:focus {
+	/* border: 1px solid #fabf42; */
+    /* width: 300px; */
+    /* height: 40px; */
+    /* border-radius: 5px; */
+    outline: none;
+    opacity: 1;
+}
+
+.modal-footer {
+	display: flex;
+	justify-content: space-between;
+    justify-content: flex-end;
+}
+
+/* 비밀번호 모달의 오류 메세지  */
+.error-msg {
+	color : red
+}
+
+/* 리뷰 수정 모달 */
+.star-rating {
+	display: flex;
+    flex-direction: row-reverse;
+	font-size: 1.25rem;
+	line-height: 2rem;
+	justify-content: space-around;
+	padding: 0 0.1em;
+	text-align: center;
+	width: 5em;
+}
+
+.star-rating input {
+    display: none;
+}
+
+.star-rating label {
+    -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
+    -webkit-text-stroke-width: 1.2px;
+    -webkit-text-stroke-color: #2b2a29;
+    cursor: pointer;
+    margin-bottom: 0%;
+}
+
+.star-rating :checked ~ label {
+    -webkit-text-fill-color: gold;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    -webkit-text-fill-color: #fff58c;
+}
+
+.star-count {
+	position: relative;
+    background-color: white;
+    width: 47px;
+    height: 23px;
+    border-radius: 10px;
+    border: 1px solid #ced4da;
+    -webkit-text-stroke-width: 1.2px;
+    -webkit-text-stroke-color: #2b2a29;
+    cursor: pointer;
+    -webkit-text-fill-color: gold;
+    padding-left: 0.2rem;
+    margin-right: 3px;
+}
+
+.star-rate {
+    position: absolute;
+    top: 0px;
+    right: 5.5px;
+    font-size: 0.9rem;
+    -webkit-text-stroke-width: 0px;
+    -webkit-text-fill-color: black;
+}
+
+.modalForm-control {
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+}
+
+.modalForm-control:focus {
+    border: 1px solid #fabf42;
+}
+
+#commentsContent2 :focus {
+    border: 1px solid #fabf42;
+}
+
+#commentUpdate {
+    float: right;
+}
